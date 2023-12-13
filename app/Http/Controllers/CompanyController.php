@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,16 +27,16 @@ class UsersController extends Controller
     {
         // dd($request);
         $request->validate([
-            'fname' => 'required',
-            'lname' => 'required',
+            'name' => 'required',
             'email' => 'email|required|unique:users',
             'password' => 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/ |string|min:8|max:32|required',
             'conf-password' => 'same:password|required',
             'phone' => 'numeric|digits:14|required',
+            'commercial_register' => 'required',
+            'address' => 'required',
         ]);
-        $user = Users::create([
-            'fname' => $request->input('fname'),
-            'lname' => $request->input('lname'),
+        $company = Company::create([
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'phone' => $request->input('phone'),
@@ -44,10 +44,10 @@ class UsersController extends Controller
             'canceled_auction' => 0,
         ]);
         // dd ($user);
-        if ($user) {
+        if ($company) {
             return back()->with('success' , 'User created successfully.');
         }
-        if (!($user)) {
+        if (!($company)) {
             return back()->withError('error' , 'Failed to create user.');
         }
     }
@@ -66,10 +66,10 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Users  $users
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Users $users)
+    public function show(Company $company)
     {
         //
     }
@@ -77,10 +77,10 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Users  $users
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Users $users)
+    public function edit(Company $company)
     {
         //
     }
@@ -89,10 +89,10 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Users  $users
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Users $users)
+    public function update(Request $request, Company $company)
     {
         //
     }
@@ -100,10 +100,10 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Users  $users
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Users $users)
+    public function destroy(Company $company)
     {
         //
     }

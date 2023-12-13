@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/register',function(){
+    return view('register');
+});
+
+////////////////////Register////////////////////
+////////////////////Register////////////////////
+////////////////////Register////////////////////
+Route::post('/userReg',[UsersController::class,'create']);
+Route::post('/companyReg',[CompanyController::class,'create']);
